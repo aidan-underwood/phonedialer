@@ -1,14 +1,17 @@
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class PhoneDialer {
+public class PhoneDialer implements ActionListener {
     private JFrame dialer;
     private JPanel contentPanel;
     private JPanel labelPanel;
@@ -19,6 +22,20 @@ public class PhoneDialer {
     private JButton dashButton;
     private JButton dialButton;
     private String phoneNumber = "";
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton sourceButton = (JButton) e.getSource();
+
+        if (sourceButton.equals(dialButton)) {
+            JOptionPane.showMessageDialog(dialer, "Phone number: " + phoneNumber);
+        } else {
+            String buttonText = sourceButton.getText();
+            if (buttonText.matches("[0-9-]")) {
+                phoneNumber += buttonText;
+            }
+        }
+    }
 
     public PhoneDialer() {
         dialer = new JFrame("Dialer");
@@ -54,6 +71,13 @@ public class PhoneDialer {
         dialButton = new JButton("Dial Number");
         dialButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(dialButton);
+
+        for (JButton button : numberButtons) {
+            button.addActionListener(this);
+        }
+
+        dashButton.addActionListener(this);
+        dialButton.addActionListener(this);
 
         dialer.setVisible(true);
     }
