@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * PhoneDialer class
+ */
 public class PhoneDialer implements ActionListener {
     private JFrame dialer;
     private JPanel contentPanel;
@@ -37,6 +40,9 @@ public class PhoneDialer implements ActionListener {
         }
     }
 
+    /**
+     * PhoneDialer default constructor
+     */
     public PhoneDialer() {
         dialer = new JFrame("Dialer");
         dialer.setSize(200, 250);
